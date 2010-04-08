@@ -72,6 +72,7 @@ public class Generator {
 	private static ArrayList<Integer> ratingsiteOfReview;//saves review-ratingSite relationship
 	private static HashMap<String,Integer> wordList;//Word list for the Test driver
 	
+	private static Serializer ontologySerializer;
 	private static Serializer serializer;
 	
 	private static File outputDir;
@@ -90,8 +91,10 @@ public class Generator {
 		ratingsiteOfReview = new ArrayList<Integer>();
 		ratingsiteOfReview.add(0);
 		
+                Generator.ontologySerializer = 
+                        new Turtle(outputFileName + ".ontology", forwardChaining);
 		Generator.serializer = getSerializer(serializerType);
-		if(serializer==null) {
+		if(serializer==null || ontologySerializer==null) {
 			System.err.println("Invalid Serializer chosen.");
 			System.exit(-1);
 		}
@@ -244,7 +247,7 @@ public class Generator {
 		DateGenerator publishDateGen = new DateGenerator(new GregorianCalendar(2000,05,20),new GregorianCalendar(2000,06,23),seedGenerator.nextLong());
 		ValueGenerator valueGen = new ValueGenerator(seedGenerator.nextLong());
 		
-		ObjectBundle bundle = new ObjectBundle(serializer);
+		ObjectBundle bundle = new ObjectBundle(ontologySerializer);
 		
 		//Calculate branch factors for inner nodes
 		int[] branchFt;
@@ -967,6 +970,7 @@ public class Generator {
 		createRatingSiteData();
 		
 		serializer.serialize();
+                ontologySerializer.serialize();
 		writeTestDriverData();
 		
 		System.out.println(serializer.triplesGenerated() + " triples generated.");

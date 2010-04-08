@@ -164,6 +164,10 @@ public class Turtle implements Serializer {
 		result.append(pType.getPrefixed()); 
 		result.append("\n");
 
+                //rdfs:Class
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Class")));
+
 		//rdf:type
 		result.append(createTriplePO(
 						RDF.prefixed("type"),
@@ -193,15 +197,15 @@ public class Turtle implements Serializer {
 		//dc:publisher
 		result.append(createTriplePO(
 				DC.prefixed("publisher"),
-				createURIref(BSBM.getStandardizationInstitution(pType.getPublisher()))));
+				createLiteral(BSBM.getStandardizationInstitution(pType.getPublisher()))));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(pType.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -217,6 +221,10 @@ public class Turtle implements Serializer {
 		
 		result.append(offer.getPrefixed());
 		result.append("\n");
+                //
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
 
 		//rdf:type
 		result.append(createTriplePO(
@@ -238,7 +246,7 @@ public class Turtle implements Serializer {
 		//bsbm:price
 		result.append(createTriplePO(
 				BSBM.prefixed("price"),
-				createDataTypeLiteral(offer.getPriceString(),BSBM.prefixed("USD"))));
+				createDataTypeLiteral(offer.getPriceString(),XSD.prefixed("double"))));
 		
 		//bsbm:validFrom
 		GregorianCalendar validFrom = new GregorianCalendar();
@@ -246,7 +254,7 @@ public class Turtle implements Serializer {
 		String validFromString = DateGenerator.formatDateTime(validFrom);
 		result.append(createTriplePO(
 				BSBM.prefixed("validFrom"),
-				createDataTypeLiteral(validFromString, XSD.prefixed("dateTime"))));
+				createLiteral(validFromString)));
 		
 		//bsbm:validTo
 		GregorianCalendar validTo = new GregorianCalendar();
@@ -254,7 +262,7 @@ public class Turtle implements Serializer {
 		String validToString = DateGenerator.formatDateTime(validTo);
 		result.append(createTriplePO(
 				BSBM.prefixed("validTo"),
-				createDataTypeLiteral(validToString, XSD.prefixed("dateTime"))));
+				createLiteral(validToString)));
 		
 		//bsbm:deliveryDays
 		result.append(createTriplePO(
@@ -264,20 +272,20 @@ public class Turtle implements Serializer {
 		//bsbm:offerWebpage
 		result.append(createTriplePO(
 				BSBM.prefixed("offerWebpage"),
-				createURIref(offer.getOfferWebpage())));
+				createLiteral(offer.getOfferWebpage())));
 		
 		//dc:publisher
 		result.append(createTriplePO(
-				DC.prefixed("publisher"),
+				BSBM.prefixed("publisher"),
 				Vendor.getPrefixed(offer.getPublisher())));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(offer.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -293,6 +301,10 @@ public class Turtle implements Serializer {
 		
 		result.append(Product.getPrefixed(product.getNr(), product.getProducer()));
 		result.append("\n");
+
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
 
 		//rdf:type
 		result.append(createTriplePO(
@@ -364,16 +376,16 @@ public class Turtle implements Serializer {
 		
 		//dc:publisher
 		result.append(createTriplePO(
-				DC.prefixed("publisher"),
+				BSBM.prefixed("publisher"),
 				Producer.getPrefixed(product.getPublisher())));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(product.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -389,11 +401,19 @@ public class Turtle implements Serializer {
 		
 		result.append(Person.getPrefixed(person.getNr(), bundle.getPublisherNum()));
 		result.append("\n");
+                //
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
+
 
 		//rdf:type
 		result.append(createTriplePO(
 						RDF.prefixed("type"),
 						FOAF.prefixed("Person")));
+		result.append(createTriplePO(
+						RDF.prefixed("type"),
+						BSBM.prefixed("Locatable")));
 		
 		//foaf:name
 		result.append(createTriplePO(
@@ -408,20 +428,20 @@ public class Turtle implements Serializer {
 		//bsbm:country
 		result.append(createTriplePO(
 				BSBM.prefixed("country"),
-				createURIref(ISO3166.find(person.getCountryCode()))));
+				createLiteral(ISO3166.find(person.getCountryCode()))));
 		
 		//dc:publisher
 		result.append(createTriplePO(
 				DC.prefixed("publisher"),
-				RatingSite.getPrefixed(person.getPublisher())));
+				createLiteral(RatingSite.getPrefixed(person.getPublisher()))));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(person.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -438,10 +458,17 @@ public class Turtle implements Serializer {
 		result.append(Producer.getPrefixed(producer.getNr()));
 		result.append("\n");
 
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
+
 		//rdf:type
 		result.append(createTriplePO(
 						RDF.prefixed("type"),
 						BSBM.prefixed("Producer")));
+		result.append(createTriplePO(
+						RDF.prefixed("type"),
+						BSBM.prefixed("Locatable")));
 		
 		//rdfs:label
 		result.append(createTriplePO(
@@ -461,20 +488,20 @@ public class Turtle implements Serializer {
 		//bsbm:country
 		result.append(createTriplePO(
 				BSBM.prefixed("country"),
-				createURIref(ISO3166.find(producer.getCountryCode()))));
+				createLiteral(ISO3166.find(producer.getCountryCode()))));
 		
 		//dc:publisher
 		result.append(createTriplePO(
-				DC.prefixed("publisher"),
+				BSBM.prefixed("publisher"),
 				Producer.getPrefixed(producer.getPublisher())));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(producer.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -490,6 +517,10 @@ public class Turtle implements Serializer {
 		
 		result.append(ProductFeature.getPrefixed(pf.getNr()));
 		result.append("\n");
+
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
 		
 		//rdf:type
 		result.append(createTriplePO(
@@ -509,15 +540,15 @@ public class Turtle implements Serializer {
 		//dc:publisher
 		result.append(createTriplePO(
 				DC.prefixed("publisher"),
-				createURIref(BSBM.getStandardizationInstitution(pf.getPublisher()))));
+				createLiteral(BSBM.getStandardizationInstitution(pf.getPublisher()))));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(pf.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 
 		return result.toString();
 	}
@@ -534,10 +565,17 @@ public class Turtle implements Serializer {
 		result.append(Vendor.getPrefixed(vendor.getNr()));
 		result.append("\n");
 
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
+
 		//rdf:type
 		result.append(createTriplePO(
 						RDF.prefixed("type"),
 						BSBM.prefixed("Vendor")));
+		result.append(createTriplePO(
+						RDF.prefixed("type"),
+						BSBM.prefixed("Locatable")));
 		
 		//rdfs:label
 		result.append(createTriplePO(
@@ -557,20 +595,20 @@ public class Turtle implements Serializer {
 		//bsbm:country
 		result.append(createTriplePO(
 				BSBM.prefixed("country"),
-				createURIref(ISO3166.find(vendor.getCountryCode()))));	
+				createLiteral(ISO3166.find(vendor.getCountryCode()))));	
 		
 		//dc:publisher
 		result.append(createTriplePO(
-				DC.prefixed("publisher"),
+				BSBM.prefixed("publisher"),
 				Vendor.getPrefixed(vendor.getPublisher())));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(vendor.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}
@@ -587,6 +625,11 @@ public class Turtle implements Serializer {
 		
 		result.append(Review.getPrefixed(review.getNr(), bundle.getPublisherNum()));
 		result.append("\n");
+                //
+                //rdfs:Resource
+                result.append(createTriplePO(   RDF.prefixed("type"),
+                                                RDFS.prefixed("Resource")));
+
 
 		//rdf:type
 		result.append(createTriplePO(
@@ -611,7 +654,7 @@ public class Turtle implements Serializer {
 		//rev:text
 		result.append(createTriplePO(
 				REV.prefixed("text"),
-				createLanguageLiteral(review.getText(),ISO3166.language[review.getLanguage()])));
+				createLiteral(review.getText())));
 		
 		//bsbm:ratingX
 		Integer[] ratings = review.getRatings();
@@ -630,20 +673,20 @@ public class Turtle implements Serializer {
 		String reviewDateString = DateGenerator.formatDateTime(reviewDate);
 		result.append(createTriplePO(
 				BSBM.prefixed("reviewDate"),
-				createDataTypeLiteral(reviewDateString, XSD.prefixed("dateTime"))));
+				createLiteral(reviewDateString)));
 		
 		//dc:publisher
 		result.append(createTriplePO(
 				DC.prefixed("publisher"),
-				RatingSite.getPrefixed(review.getPublisher())));
+				createLiteral (RatingSite.getPrefixed(review.getPublisher()))));
 		
 		//dc:date
 		GregorianCalendar date = new GregorianCalendar();
 		date.setTimeInMillis(review.getPublishDate());
-		String dateString = DateGenerator.formatDate(date);
+		String dateString = DateGenerator.formatDateTime(date);
 		result.append(createTriplePOEnd(
 				DC.prefixed("date"),
-				createDataTypeLiteral(dateString, XSD.prefixed("date"))));
+				createLiteral(dateString)));
 		
 		return result.toString();
 	}

@@ -1,0 +1,43 @@
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix geo: <http://www.w3.org/2003/01/geo/wgs84_pos#> .
+@prefix tracker: <http://www.tracker-project.org/ontologies/tracker#> .
+@prefix nrl: <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#> .
+@prefix nao: <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#> .
+
+geo: a tracker:Namespace, tracker:Ontology;
+        tracker:prefix "geo";
+        nao:lastModified "2010-03-21T11:00:00Z" .
+
+geo:SpatialThing rdf:type rdfs:Class ;
+        rdfs:label "SpatialThing" ;
+        rdfs:comment "Anything with spatial extent, i.e. size, shape, or position.\r\n e.g. people, places, bowling balls, as well as abstract areas like cubes.\r\n" .
+
+geo:Point rdf:type rdfs:Class ;
+        rdfs:subClassOf geo:SpatialThing ;
+        rdfs:label "point" ;
+        rdfs:comment "A point, typically described using a coordinate system relative to Earth, such as WGS84.\r\n  " .
+
+geo:lat rdf:type rdf:Property ;
+        rdfs:domain geo:SpatialThing ;
+        rdfs:label "latitude" ;
+        rdfs:comment "The WGS84 latitude of a SpatialThing (decimal degrees)." .
+
+geo:location rdf:type rdf:Property ;
+        rdfs:range geo:SpatialThing ;
+        rdfs:label "location" .
+
+geo:long rdf:type rdf:Property ;
+        rdfs:domain geo:SpatialThing ;
+        rdfs:label "longitude" ;
+        rdfs:comment "The WGS84 longitude of a SpatialThing (decimal degrees)." .
+
+geo:alt rdf:type rdf:Property ;
+        rdfs:domain geo:SpatialThing ;
+        rdfs:label "altitude" ;
+        rdfs:comment "The WGS84 altitude of a SpatialThing (decimal meters \r\nabove the local reference ellipsoid)." .
+
+geo:lat_long rdf:type rdf:Property ;
+        rdfs:label "lat/long" ;
+        rdfs:comment "A comma-separated representation of a latitude, longitude coordinate." .

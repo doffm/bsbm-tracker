@@ -1,0 +1,286 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix tracker: <http://www.tracker-project.org/ontologies/tracker#> .
+@prefix nrl: <http://www.semanticdesktop.org/ontologies/2007/08/15/nrl#> .
+@prefix nao: <http://www.semanticdesktop.org/ontologies/2007/08/15/nao#> .
+@prefix dc: <http://purl.org/dc/elements/1.1/> .
+@prefix rev: <http://purl.org/stuff/rev#> .
+@prefix bsbm: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/vocabulary/> .
+@prefix bsbm-inst: <http://www4.wiwiss.fu-berlin.de/bizer/bsbm/v01/instances/> .
+
+bsbm: a tracker:Namespace, tracker:Ontology;
+        tracker:prefix "bsbm";
+        nao:lastModified "2010-03-21T11:00:00Z" .
+
+rev: a tracker:Namespace, tracker:Ontology;
+        tracker:prefix "rev";
+        nao:lastModified "2010-03-21T11:00:00Z" .
+
+#bsbm-inst: a tracker:Namespace, tracker:Ontology;
+#        tracker:prefix "bsbm-inst";
+#        nao:lastModified "2010-03-21T11:00:00Z" .
+
+#------------------------------------------------------------------------------
+
+bsbm:Product a rdfs:Class;
+        rdfs:label "Product" .
+
+bsbm:ProductType a rdfs:Class;
+        rdfs:label "ProductType" .
+
+bsbm:ProductFeature a rdfs:Class;
+        rdfs:label "ProductFeature" .
+
+bsbm:Locatable a rdfs:Class;
+        rdfs:label "Locatable" .
+
+bsbm:Producer a rdfs:Class;
+        rdfs:label "Producer" ;
+	rdfs:subClassOf bsbm:Locatable .
+
+bsbm:Vendor a rdfs:Class;
+        rdfs:label "Vendor" ;
+	rdfs:subClassOf bsbm:Locatable .
+
+bsbm:Person a rdfs:Class;
+        rdfs:label "Person" ;
+	rdfs:subClassOf bsbm:Locatable .
+
+bsbm:Review a rdfs:Class;
+        rdfs:label "Review" .
+
+bsbm:Offer a rdfs:Class;
+        rdfs:label "Offer" .
+
+#------------------------------------------------------------------------------
+#Product properties
+
+bsbm:producer a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range bsbm:Producer .
+
+bsbm:productPropertyTextual1 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual2 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual3 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual4 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual5 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual6 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual7 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual8 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyTextual9 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:string .
+
+bsbm:productPropertyNumeric1 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric2 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric3 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric4 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric5 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric6 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric7 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric8 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productPropertyNumeric9 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Product;
+        rdfs:range xsd:integer .
+
+bsbm:productFeature a rdf:Property;
+        rdfs:domain bsbm:Product;
+        rdfs:range bsbm:ProductFeature .
+
+#------------------------------------------------------------------------------
+#Locatable properties
+
+#TODO The range is actually a URI. Is there a simple type for this restriction?
+bsbm:country a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Locatable;
+        rdfs:range xsd:string .
+
+#------------------------------------------------------------------------------
+#Offer properties
+
+bsbm:product a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range bsbm:Product .
+
+bsbm:vendor a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range bsbm:Vendor .
+
+#TODO The range is actually a currency. Is there a specific type for this?
+bsbm:price a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range xsd:double .
+
+bsbm:validFrom a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range xsd:date .
+
+bsbm:validTo a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range xsd:date .
+
+bsbm:deliveryDays a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range xsd:integer .
+
+#TODO The range is actually an URL. Is there a simple type for this restriction?
+bsbm:offerWebpage a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Offer;
+        rdfs:range xsd:string .
+
+#------------------------------------------------------------------------------
+#Review properties
+
+bsbm:reviewFor a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range bsbm:Product .
+
+bsbm:reviewDate a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:date .
+
+bsbm:rating1 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating2 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating3 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating4 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating5 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating6 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating7 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating8 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating9 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+bsbm:rating10 a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain bsbm:Review;
+        rdfs:range xsd:integer .
+
+#------------------------------------------------------------------------------
+
+#This is needed because tracker is very restrictive about the types used for publisher.
+bsbm:publisher a rdf:Property;
+        nrl:maxCardinality 1;
+        rdfs:domain rdfs:Resource;
+        rdfs:range bsbm:Locatable .
+
+rev:reviewer a rdf:Property;
+        rdfs:domain rdfs:Resource;
+        rdfs:range bsbm:Person .
+
+rev:text a rdf:Property;
+        rdfs:domain rdfs:Resource;
+        rdfs:range xsd:string .
+
+#------------------------------------------------------------------------------
