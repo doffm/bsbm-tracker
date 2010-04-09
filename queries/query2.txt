@@ -10,7 +10,7 @@ WHERE {
     %ProductXYZ% rdfs:comment ?comment .
     %ProductXYZ% bsbm:producer ?p .
     ?p rdfs:label ?producer .
-    %ProductXYZ% dc:publisher ?p . 
+    %ProductXYZ% bsbm:publisher ?p . 
     %ProductXYZ% bsbm:productFeature ?f .
     ?f rdfs:label ?productFeature .
     %ProductXYZ% bsbm:productPropertyTextual1 ?propertyTextual1 .
